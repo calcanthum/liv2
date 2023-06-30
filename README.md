@@ -11,15 +11,15 @@ LIV2 is a simple Flask-based application that validates South African ID numbers
 
 1. Clone this repository.
 
-  git clone https://github.com/calcanthum/liv2.git
+	git clone https://github.com/calcanthum/liv2.git
 
 2. Navigate to the project directory.
 
-  cd liv2
+	cd liv2
 
 3. Install the necessary dependencies.
 
-  pip install -r requirements.txt
+	pip install -r requirements.txt
 
 ## Usage
 
