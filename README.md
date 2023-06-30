@@ -2,6 +2,15 @@
 
 LIV2 is a simple Flask-based application that validates South African ID numbers and provides information extracted from them.
 
+# Disclaimer
+Please be advised that by default, this application is configured to run in debug mode, as specified in the run.py file. Debug mode facilitates active development of the application by providing detailed error messages and enabling features like hot reloading.
+
+However, debug mode is not suitable for production environments due to potential security risks and performance issues. It can expose sensitive information in error messages, and it uses more system resources.
+
+Before deploying this application in a production environment, ensure that debug mode is turned off. This can be done by setting `debug=False` in `run.py` or removing the `debug` parameter altogether since its default value is `False`.
+
+Always ensure to follow best practices for deploying Flask applications in a production environment. Consult the [Flask Deployment Documentation](https://flask.palletsprojects.com/en/2.3.x/deploying/) for more detailed information.
+
 ## Features
 
 - Validate South African ID numbers
