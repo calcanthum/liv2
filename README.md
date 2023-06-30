@@ -15,6 +15,7 @@ Always ensure to follow best practices for deploying Flask applications in a pro
 
 - Validate South African ID numbers
 - Extract date of birth, gender, nationality, and residency status from ID numbers
+- Input checking with whitespace forgiveness
 
 ## Installation
 
@@ -43,3 +44,9 @@ You can then validate an ID number by making a POST request to `http://localhost
 For example, using `curl`, you can test the endpoint with the following command:
 
 	curl -X POST -H "Content-Type: application/json" -d '{"id_number":"8205075432087"}' http://localhost:5000/validate_id
+
+## FAQ
+
+Q: Why "LIV2"?
+
+A: From the alpha name of the project: "Luhn_Info_Verbose"
