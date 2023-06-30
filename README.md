@@ -42,4 +42,4 @@ You can then validate an ID number by making a POST request to `http://localhost
 
 For example, using `curl`, you can test the endpoint with the following command:
 
-curl -X POST -H "Content-Type: application/json" -d '{"id_number":"8205075432087"}' http://localhost:5000/validate_id
+	curl -X POST -H "Content-Type: application/json" -d '{"id_number":"8205075432087"}' http://localhost:5000/validate_id
