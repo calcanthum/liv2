@@ -46,7 +46,7 @@ def validate_id(id_number: str) -> dict:
     month = int(id_number[2:4])
     day = int(id_number[4:6])
 
-    # Validate date
+# Validate date
     try:
         # Handle dates from different centuries.
         current_year_suffix = datetime.datetime.now().year % 100  # last two digits of the current year
@@ -57,7 +57,8 @@ def validate_id(id_number: str) -> dict:
         extracted_info["error_message"] = "Invalid date of birth."
         return extracted_info
 
-    extracted_info["date_of_birth"] = date_of_birth
+    extracted_info["date_of_birth"] = date_of_birth.strftime('%Y-%m-%d')
+
 
     # Extract gender information.
     gender_indicator = int(id_number[6:10])
