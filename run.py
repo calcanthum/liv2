@@ -1,4 +1,4 @@
-from liv import create_app
+from liv2 import create_app
 
 app = create_app()
 

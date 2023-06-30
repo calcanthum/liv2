@@ -7,7 +7,9 @@ def validate_checksum(id_string: str) -> bool:
     odds = sum(sum(divmod(int(i)*2, 10)) for i in id_string[-2::-2])
     return (evens + odds) % 10 == 0
 
-ID_NUMBER_REGEX = re.compile(r"\d{13}$")
+# Use two different regex patterns, one for checking length and one for checking characters.
+ID_NUMBER_LENGTH_REGEX = re.compile(r"^.{13}$")
+ID_NUMBER_CHARS_REGEX = re.compile(r"^\d+$")
 
 def validate_id(id_number: str) -> dict:
     """
@@ -20,10 +22,18 @@ def validate_id(id_number: str) -> dict:
     dict: A dictionary containing extracted information from the ID or an error message.
     """
     extracted_info = {}
-
-    # Ensure ID number format with a regular expression.
-    if not ID_NUMBER_REGEX.match(id_number):
-        extracted_info["error_message"] = "Invalid ID number length or non-digit characters found."
+    
+    # Remove any spaces from the ID number.
+    id_number = id_number.replace(" ", "")
+    
+    # Check ID number length
+    if not ID_NUMBER_LENGTH_REGEX.match(id_number):
+        extracted_info["error_message"] = "Invalid ID number length."
+        return extracted_info
+    
+    # Check for non-digit characters
+    if not ID_NUMBER_CHARS_REGEX.match(id_number):
+        extracted_info["error_message"] = "Invalid characters found in ID number."
         return extracted_info
 
     # Validate check digit.
