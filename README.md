@@ -9,15 +9,15 @@ LIV2 is a simple Flask-based application that validates South African ID numbers
 
 ## Installation
 
-1. Clone this repository.
+Clone this repository.
 
 	git clone https://github.com/calcanthum/liv2.git
 
-2. Navigate to the project directory.
+Navigate to the project directory.
 
 	cd liv2
 
-3. Install the necessary dependencies.
+Install the necessary dependencies.
 
 	pip install -r requirements.txt
 
@@ -34,4 +34,3 @@ You can then validate an ID number by making a POST request to `http://localhost
 For example, using `curl`, you can test the endpoint with the following command:
 
 curl -X POST -H "Content-Type: application/json" -d '{"id_number":"8205075432087"}' http://localhost:5000/validate_id
-
