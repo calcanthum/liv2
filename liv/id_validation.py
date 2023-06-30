@@ -7,6 +7,8 @@ def validate_checksum(id_string: str) -> bool:
     odds = sum(sum(divmod(int(i)*2, 10)) for i in id_string[-2::-2])
     return (evens + odds) % 10 == 0
 
+ID_NUMBER_REGEX = re.compile(r"\d{13}$")
+
 def validate_id(id_number: str) -> dict:
     """
     Validate South African ID number and provide extracted information.
@@ -20,7 +22,7 @@ def validate_id(id_number: str) -> dict:
     extracted_info = {}
 
     # Ensure ID number format with a regular expression.
-    if not re.match(r"\d{13}$", id_number):
+    if not ID_NUMBER_REGEX.match(id_number):
         extracted_info["error_message"] = "Invalid ID number length or non-digit characters found."
         return extracted_info
 
@@ -30,29 +32,22 @@ def validate_id(id_number: str) -> dict:
         return extracted_info
 
     # Extract birth date information.
-    date_of_birth_str = id_number[:6]
-    year = int(date_of_birth_str[:2])
-    month = int(date_of_birth_str[2:4])
-    day = int(date_of_birth_str[4:6])
+    year_str = id_number[:2]
+    month = int(id_number[2:4])
+    day = int(id_number[4:6])
 
     # Validate date
     try:
-        datetime.datetime(year, month, day)
+        # Handle dates from different centuries.
+        current_year_suffix = datetime.datetime.now().year % 100  # last two digits of the current year
+        year = int(year_str) + 2000 if int(year_str) <= current_year_suffix else int(year_str) + 1900
+
+        date_of_birth = datetime.datetime(year, month, day)
     except ValueError:
         extracted_info["error_message"] = "Invalid date of birth."
         return extracted_info
 
-
-    # Handle dates from different centuries.
-    current_year = datetime.datetime.now().year
-    current_year_suffix = current_year % 100  # last two digits of the current year
-    year += 2000 if year <= current_year_suffix else 1900
-
-    # List of month names for conversion
-    month_names = ["January", "February", "March", "April", "May", "June", 
-                   "July", "August", "September", "October", "November", "December"]
-
-    extracted_info["date_of_birth"] = f"{day} {month_names[month-1]} {year}"
+    extracted_info["date_of_birth"] = date_of_birth
 
     # Extract gender information.
     gender_indicator = int(id_number[6:10])
